@@ -9,6 +9,7 @@ CREATE TABLE tweets (
     creation_ts TIMESTAMP,
     user VARCHAR,
     text VARCHAR,
+    source VARCHAR,
     hashtags VARCHAR,
     mentions VARCHAR,
     location VARCHAR,
