@@ -14,5 +14,5 @@ case class Tweet(id:String,
                  hashtags: String,
                  mentions: String,
                  location: String,
-                 favouriteCount: Int,
+                 favoriteCount: Int,
                  retweetCount: Int)

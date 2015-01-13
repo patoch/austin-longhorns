@@ -16,3 +16,8 @@ CREATE TABLE tweets (
     retweet_count INT,
     PRIMARY KEY(id)
 );
+
+// 1;2015-01-01;tony;hey this is a tweet;a hashtag;a mention;paris;5;9
+
+
+3;2015-01-01;tony;hey this is a tweet;a hashtag;a mention;paris;5;9
