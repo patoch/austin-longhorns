@@ -4,7 +4,13 @@ version := "1.0"
 
 scalaVersion := "2.10.4"
 
+
 exportJars := true
+
+
+//libraryDependencies += "org.apache.lucene" % "lucene-core" % "4.10.3"
+//libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "4.10.3"
+
 
 unmanagedJars in Compile <++= baseDirectory map { base =>
   val DSE_HOME = "/Users/patrick/installs/dse-4.6.0"

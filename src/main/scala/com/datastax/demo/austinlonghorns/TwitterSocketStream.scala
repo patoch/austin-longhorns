@@ -15,26 +15,29 @@ class TwitterSocketStream(ssc: StreamingContext) extends Serializable {
 
     // create stream
     val stream = ssc.socketTextStream(Settings.TweetSourceServerIP, Settings.TweetSourceServerPort)
-    val format = new java.text.SimpleDateFormat("dd-MM-yyyy")
+    val dayFormat = new java.text.SimpleDateFormat("ddMMyyyy")
+    val tsFormat = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
 
-    val tweetRDD = stream.map(_.split(";")).map( x => Tweet(x(0), format.parse(x(1)), x(2), x(3), x(4), x(5), x(6), x(7).toInt, x(8).toInt))
+    val tweetRDD = stream
+      .map(_.split(";;"))
+      .map( x => Tweet(x(0), dayFormat.parse(x(1)).toString,tsFormat.parse(x(1)), x(2), x(3), x(4), x(5).toInt, x(6).toInt, null))
+
+    // save tweets
+    tweetRDD.saveToCassandra(
+      "austin_longhorns_ks",
+      "tweets2")
 
     tweetRDD.saveToCassandra(
       "austin_longhorns_ks",
-      "tweets")
+      "tweets_by_user_id2")
 
-
-    // count words
-    /*val words = stream.flatMap(_.split(" "))
-    val pairs = words.map(word => (word, 1))
-    val wordCounts = pairs.reduceByKey(_ + _)
-    wordCounts.print()
-    wordCounts.foreachRDD(println(_))
-
-    wordCounts.saveToCassandra(
+    tweetRDD.saveToCassandra(
       "austin_longhorns_ks",
-      "tweets",
-      SomeColumns("id", "retweet_count"))*/
+      "tweets_by_retweet_count2")
+
+    tweetRDD.saveToCassandra(
+      "austin_longhorns_ks",
+      "tweets_by_favorite_count2")
 
 
     ssc.start()

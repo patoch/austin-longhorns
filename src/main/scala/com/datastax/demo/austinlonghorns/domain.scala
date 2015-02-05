@@ -8,11 +8,17 @@ import java.util.Date
 
 
 case class Tweet(id:String,
-                 creation_ts: Date,
-                 user: String,
+                 creation_day: String,
+                 creation_at: Date,
                  text: String,
-                 hashtags: String,
-                 mentions: String,
-                 location: String,
-                 favoriteCount: Int,
-                 retweetCount: Int)
+                 user_id: String,
+                 user_name: String,
+                 retweet_count: Int,
+                 favorite_count: Int,
+                 sentiment: String)
+
+
+case class Word(id: String,
+                 word:String,
+                 count: String,
+                 value: String)
